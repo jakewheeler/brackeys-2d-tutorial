@@ -1,6 +1,6 @@
-# Brackey's 2D Godot Tutorial
+# Brackeys 2D Godot Tutorial
 
-This repository contains the code for Brackey's [How to make a Video Game - Godot Beginner Tutorial](https://www.youtube.com/watch?v=LOhfqjmasi0) video.
+This repository contains the code for Brackeys [How to make a Video Game - Godot Beginner Tutorial](https://www.youtube.com/watch?v=LOhfqjmasi0) video.
 
 The assets required to run this project can be found [here](https://brackeysgames.itch.io/brackeys-platformer-bundle).
 
