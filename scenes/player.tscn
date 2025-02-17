@@ -186,3 +186,7 @@ autoplay = "idle"
 z_as_relative = false
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_h12c8")
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true

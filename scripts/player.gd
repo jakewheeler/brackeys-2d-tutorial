@@ -8,14 +8,14 @@ const MAX_JUMP = 2
 var jump = 0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var coyote_timer: Timer = $CoyoteTimer
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	jump_handler()
+	jump_handler(!coyote_timer.is_stopped())
 			
 	var direction := Input.get_axis("move_left", "move_right")
 	
@@ -26,17 +26,25 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
+	# coyote time
+	var was_on_floor = is_on_floor()
 	move_and_slide()
 	
-func jump_handler() -> void:
+	if was_on_floor and not is_on_floor() and jump < 1:
+		coyote_timer.start()
+	
+func jump_handler(coyote_timer_enabled: bool) -> void:
 	if is_on_floor():
 		jump = 0
-		
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	
+	var on_floor: bool = is_on_floor() || coyote_timer_enabled
+	# on floor
+	if Input.is_action_just_pressed("jump") and on_floor:
 		velocity.y = JUMP_VELOCITY
 		jump += 1
-		
-	if Input.is_action_just_pressed("jump") and not is_on_floor() and jump < MAX_JUMP:
+	
+	# in the air
+	if Input.is_action_just_pressed("jump") and not on_floor and jump < MAX_JUMP:
 		velocity.y = JUMP_VELOCITY
 		jump += 1
 
